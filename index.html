@@ -1,0 +1,1227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>STREET 0.3</title>
+
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+:root{
+  --black:#050505;
+  --black2:#0c0c0c;
+  --black3:#151515;
+  --line:#292929;
+  --white:#f5f5f5;
+  --gray:#aaa;
+  --gold:#d4af37;
+  --blue:#168cff;
+  --danger:#e53935;
+}
+
+body{
+  font-family:Arial,sans-serif;
+  background:var(--black);
+  color:var(--white);
+  min-height:100vh;
+}
+
+button,input,textarea{
+  font:inherit;
+}
+
+button{
+  cursor:pointer;
+}
+
+.hidden{
+  display:none!important;
+}
+
+/* AUTH */
+
+#auth{
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  padding:20px;
+  background:
+    radial-gradient(circle at top,#202020 0,#050505 50%);
+}
+
+.auth-box{
+  width:100%;
+  max-width:420px;
+  background:#0b0b0b;
+  border:1px solid #292929;
+  border-radius:22px;
+  padding:30px 22px;
+  box-shadow:0 20px 60px #000;
+}
+
+.logo{
+  text-align:center;
+  font-size:38px;
+  font-weight:900;
+  letter-spacing:7px;
+  margin-bottom:8px;
+}
+
+.subtitle{
+  text-align:center;
+  color:var(--gray);
+  margin-bottom:25px;
+}
+
+.auth-tabs{
+  display:flex;
+  border-bottom:1px solid var(--line);
+  margin-bottom:20px;
+}
+
+.auth-tabs button{
+  width:50%;
+  background:none;
+  color:var(--gray);
+  border:0;
+  padding:13px;
+}
+
+.auth-tabs button.active{
+  color:white;
+  border-bottom:2px solid var(--gold);
+}
+
+.form-group{
+  margin-bottom:13px;
+}
+
+.form-group label{
+  display:block;
+  font-size:13px;
+  color:#aaa;
+  margin-bottom:6px;
+}
+
+input,textarea{
+  width:100%;
+  background:#141414;
+  color:white;
+  border:1px solid #303030;
+  border-radius:11px;
+  padding:13px;
+  outline:none;
+}
+
+input:focus,textarea:focus{
+  border-color:var(--gold);
+}
+
+textarea{
+  min-height:90px;
+  resize:vertical;
+}
+
+.primary{
+  width:100%;
+  border:0;
+  border-radius:12px;
+  padding:13px;
+  background:var(--gold);
+  color:#000;
+  font-weight:bold;
+  margin-top:8px;
+}
+
+.note{
+  color:#777;
+  font-size:12px;
+  text-align:center;
+  margin-top:15px;
+  line-height:1.5;
+}
+
+/* APP */
+
+#app{
+  min-height:100vh;
+  padding-bottom:75px;
+}
+
+.topbar{
+  position:sticky;
+  top:0;
+  z-index:50;
+  height:60px;
+  background:rgba(5,5,5,.96);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--line);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:0 17px;
+}
+
+.top-logo{
+  font-size:24px;
+  font-weight:900;
+  letter-spacing:4px;
+}
+
+.top-button{
+  border:0;
+  background:none;
+  color:white;
+  font-size:22px;
+}
+
+.page{
+  max-width:650px;
+  margin:auto;
+  padding:12px;
+}
+
+.page-title{
+  font-size:25px;
+  font-weight:bold;
+  margin:10px 0 17px;
+}
+
+/* STORIES */
+
+.stories{
+  display:flex;
+  gap:13px;
+  overflow-x:auto;
+  padding:12px 4px 17px;
+}
+
+.story{
+  min-width:68px;
+  text-align:center;
+  font-size:11px;
+  color:#bbb;
+}
+
+.story-avatar{
+  width:61px;
+  height:61px;
+  border-radius:50%;
+  border:3px solid var(--blue);
+  background:#1c1c1c;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  margin:auto auto 5px;
+  overflow:hidden;
+  font-weight:bold;
+}
+
+.story-avatar img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+/* POSTS */
+
+.post{
+  background:var(--black2);
+  border:1px solid var(--line);
+  border-radius:14px;
+  overflow:hidden;
+  margin-bottom:15px;
+}
+
+.post-user{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:12px;
+}
+
+.avatar{
+  width:40px;
+  height:40px;
+  border-radius:50%;
+  background:#222;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  overflow:hidden;
+  font-weight:bold;
+}
+
+.avatar img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+.username{
+  font-weight:bold;
+}
+
+.post-media{
+  width:100%;
+  max-height:600px;
+  background:#111;
+}
+
+.post-media img,
+.post-media video{
+  width:100%;
+  max-height:600px;
+  object-fit:contain;
+  display:block;
+}
+
+.text-post{
+  padding:40px 20px;
+  font-size:20px;
+  text-align:center;
+}
+
+.post-actions{
+  display:flex;
+  gap:18px;
+  padding:11px 12px;
+}
+
+.icon-btn{
+  border:0;
+  background:none;
+  color:white;
+  font-size:23px;
+}
+
+.post-info{
+  padding:0 12px 14px;
+}
+
+.caption{
+  margin-top:5px;
+  color:#ddd;
+  line-height:1.4;
+}
+
+/* SEARCH */
+
+.search-box{
+  position:relative;
+  margin-bottom:15px;
+}
+
+.search-box input{
+  padding-left:42px;
+}
+
+.search-icon{
+  position:absolute;
+  left:14px;
+  top:12px;
+}
+
+.user-result{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:13px;
+  border-bottom:1px solid var(--line);
+  background:#0b0b0b;
+}
+
+.user-result-info{
+  flex:1;
+}
+
+.user-result-name{
+  font-weight:bold;
+}
+
+.user-result-bio{
+  color:#888;
+  font-size:12px;
+  margin-top:4px;
+}
+
+.follow-btn{
+  background:white;
+  color:black;
+  border:0;
+  padding:8px 13px;
+  border-radius:8px;
+  font-weight:bold;
+}
+
+.following{
+  background:#292929;
+  color:white;
+}
+
+/* CREATE */
+
+.create-card{
+  background:#0b0b0b;
+  border:1px solid var(--line);
+  padding:17px;
+  border-radius:15px;
+}
+
+.media-preview{
+  margin-top:12px;
+  max-height:350px;
+  overflow:hidden;
+  border-radius:10px;
+}
+
+.media-preview img,
+.media-preview video{
+  width:100%;
+  max-height:350px;
+  object-fit:contain;
+}
+
+.create-buttons{
+  display:flex;
+  gap:8px;
+  margin-top:12px;
+}
+
+.secondary{
+  flex:1;
+  background:#1b1b1b;
+  color:white;
+  border:1px solid #333;
+  border-radius:10px;
+  padding:11px;
+}
+
+/* MESSAGES */
+
+.chat-list{
+  border:1px solid var(--line);
+  border-radius:14px;
+  overflow:hidden;
+}
+
+.chat-user{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:14px;
+  background:#0b0b0b;
+  border-bottom:1px solid var(--line);
+}
+
+.chat-user:last-child{
+  border-bottom:0;
+}
+
+.chat-user-info{
+  flex:1;
+}
+
+.message-box{
+  margin-top:15px;
+  background:#0b0b0b;
+  border:1px solid var(--line);
+  border-radius:14px;
+  padding:15px;
+}
+
+.messages{
+  height:300px;
+  overflow-y:auto;
+  margin-bottom:10px;
+}
+
+.message{
+  padding:9px 12px;
+  border-radius:13px;
+  background:#222;
+  margin:7px 0;
+  max-width:80%;
+}
+
+.message.me{
+  background:var(--gold);
+  color:#000;
+  margin-left:auto;
+}
+
+/* PROFILE */
+
+.profile-head{
+  background:#0b0b0b;
+  border:1px solid var(--line);
+  border-radius:15px;
+  padding:20px;
+}
+
+.profile-top{
+  display:flex;
+  gap:20px;
+  align-items:center;
+}
+
+.profile-avatar{
+  width:90px;
+  height:90px;
+  border-radius:50%;
+  background:#222;
+  overflow:hidden;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-size:25px;
+  font-weight:bold;
+}
+
+.profile-avatar img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+.profile-stats{
+  display:flex;
+  gap:22px;
+}
+
+.stat{
+  text-align:center;
+}
+
+.stat b{
+  display:block;
+  font-size:18px;
+}
+
+.stat span{
+  color:#999;
+  font-size:12px;
+}
+
+.bio{
+  margin-top:15px;
+  color:#bbb;
+}
+
+.profile-buttons{
+  display:flex;
+  gap:8px;
+  margin-top:15px;
+}
+
+.profile-buttons button{
+  flex:1;
+  background:#202020;
+  color:white;
+  border:1px solid #333;
+  border-radius:9px;
+  padding:10px;
+}
+
+.post-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:3px;
+  margin-top:15px;
+}
+
+.grid-post{
+  aspect-ratio:1;
+  background:#151515;
+  overflow:hidden;
+}
+
+.grid-post img,
+.grid-post video{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+/* EDIT PROFILE */
+
+.edit-card{
+  background:#0b0b0b;
+  border:1px solid var(--line);
+  border-radius:15px;
+  padding:18px;
+}
+
+.profile-photo-edit{
+  width:90px;
+  height:90px;
+  border-radius:50%;
+  margin:0 auto 15px;
+  overflow:hidden;
+  background:#222;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.profile-photo-edit img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+/* ADMIN */
+
+.admin-card{
+  background:#110909;
+  border:1px solid #552222;
+  border-radius:15px;
+  padding:18px;
+}
+
+.admin-title{
+  color:#ff6565;
+  font-size:20px;
+  font-weight:bold;
+  margin-bottom:10px;
+}
+
+.admin-user{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:12px 0;
+  border-bottom:1px solid #332222;
+}
+
+.block-btn{
+  background:var(--danger);
+  color:white;
+  border:0;
+  border-radius:8px;
+  padding:8px 12px;
+}
+
+/* BOTTOM NAV */
+
+.bottom-nav{
+  position:fixed;
+  bottom:0;
+  left:0;
+  right:0;
+  height:66px;
+  background:rgba(8,8,8,.98);
+  border-top:1px solid var(--line);
+  display:flex;
+  justify-content:space-around;
+  align-items:center;
+  z-index:100;
+}
+
+.nav-btn{
+  background:none;
+  border:0;
+  color:#777;
+  font-size:20px;
+  min-width:55px;
+}
+
+.nav-btn.active{
+  color:white;
+}
+
+.nav-btn small{
+  display:block;
+  font-size:9px;
+  margin-top:2px;
+}
+
+.toast{
+  position:fixed;
+  bottom:80px;
+  left:50%;
+  transform:translateX(-50%);
+  background:#222;
+  color:white;
+  padding:12px 17px;
+  border-radius:10px;
+  z-index:300;
+  display:none;
+}
+
+@media(max-width:420px){
+  .profile-top{
+    gap:12px;
+  }
+
+  .profile-avatar{
+    width:75px;
+    height:75px;
+  }
+
+  .profile-stats{
+    gap:12px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- ================= AUTH ================= -->
+
+<section id="auth">
+
+  <div class="auth-box">
+
+    <div class="logo">STREET</div>
+    <div class="subtitle">Connect. Share. Discover.</div>
+
+    <div class="auth-tabs">
+      <button id="loginTab" class="active" onclick="showAuth('login')">
+        LOGIN
+      </button>
+
+      <button id="signupTab" onclick="showAuth('signup')">
+        SIGN UP
+      </button>
+    </div>
+
+    <!-- LOGIN -->
+
+    <form id="loginForm" onsubmit="login(event)">
+
+      <div class="form-group">
+        <label>Username</label>
+        <input id="loginUsername" required autocomplete="username">
+      </div>
+
+      <div class="form-group">
+        <label>Password</label>
+        <input id="loginPassword" type="password" required autocomplete="current-password">
+      </div>
+
+      <button class="primary">LOGIN</button>
+
+    </form>
+
+    <!-- SIGNUP -->
+
+    <form id="signupForm" class="hidden" onsubmit="signup(event)">
+
+      <div class="form-group">
+        <label>Username</label>
+        <input id="signupUsername"
+               placeholder="Choose a unique username"
+               required
+               minlength="3"
+               maxlength="20">
+      </div>
+
+      <div class="form-group">
+        <label>Name</label>
+        <input id="signupName" required maxlength="40">
+      </div>
+
+      <div class="form-group">
+        <label>Age</label>
+        <input id="signupAge" type="number" min="13" max="120" required>
+      </div>
+
+      <div class="form-group">
+        <label>Email OR phone number</label>
+        <input id="signupContact"
+               placeholder="Enter email or phone"
+               required>
+      </div>
+
+      <div class="form-group">
+        <label>Create password</label>
+        <input id="signupPassword"
+               type="password"
+               minlength="6"
+               required>
+      </div>
+
+      <button class="primary">CREATE ACCOUNT</button>
+
+    </form>
+
+    <div class="note">
+      Your prototype data is stored locally on this device.
+      A real public multi-user version needs a secure server/database.
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- ================= APP ================= -->
+
+<section id="app" class="hidden">
+
+  <header class="topbar">
+
+    <div class="top-logo">STREET</div>
+
+    <button class="top-button" onclick="showPage('notifications')">
+      🔔
+    </button>
+
+  </header>
+
+
+  <!-- HOME -->
+
+  <main id="homePage" class="page">
+
+    <div id="stories" class="stories"></div>
+
+    <div id="feed"></div>
+
+  </main>
+
+
+  <!-- SEARCH -->
+
+  <main id="searchPage" class="page hidden">
+
+    <div class="page-title">Search</div>
+
+    <div class="search-box">
+      <span class="search-icon">🔍</span>
+      <input id="searchInput"
+             placeholder="Search people..."
+             oninput="searchUsers()">
+    </div>
+
+    <div id="searchResults"></div>
+
+  </main>
+
+
+  <!-- CREATE -->
+
+  <main id="createPage" class="page hidden">
+
+    <div class="page-title">Create Post</div>
+
+    <div class="create-card">
+
+      <textarea id="postText"
+                placeholder="What's happening?"></textarea>
+
+      <div class="create-buttons">
+
+        <button class="secondary"
+                onclick="document.getElementById('imageInput').click()">
+          🖼️ Photo
+        </button>
+
+        <button class="secondary"
+                onclick="document.getElementById('videoInput').click()">
+          🎥 Video
+        </button>
+
+        <button class="secondary"
+                onclick="document.getElementById('cameraInput').click()">
+          📷 Camera
+        </button>
+
+      </div>
+
+      <input id="imageInput"
+             type="file"
+             accept="image/*"
+             class="hidden"
+             onchange="previewMedia(event,'image')">
+
+      <input id="videoInput"
+             type="file"
+             accept="video/*"
+             class="hidden"
+             onchange="previewMedia(event,'video')">
+
+      <input id="cameraInput"
+             type="file"
+             accept="image/*"
+             capture="environment"
+             class="hidden"
+             onchange="previewMedia(event,'image')">
+
+      <div id="mediaPreview" class="media-preview"></div>
+
+      <button class="primary" onclick="createPost()">
+        POST
+      </button>
+
+    </div>
+
+  </main>
+
+
+  <!-- MESSAGES -->
+
+  <main id="messagesPage" class="page hidden">
+
+    <div class="page-title">Messages</div>
+
+    <div id="chatList" class="chat-list"></div>
+
+    <div id="chatBox" class="message-box hidden">
+
+      <h3 id="chatTitle"></h3>
+
+      <div id="messages" class="messages"></div>
+
+      <div style="display:flex;gap:8px">
+        <input id="messageInput" placeholder="Write a message...">
+        <button class="primary"
+                style="width:auto;margin:0"
+                onclick="sendMessage()">
+          Send
+        </button>
+      </div>
+
+    </div>
+
+  </main>
+
+
+  <!-- PROFILE -->
+
+  <main id="profilePage" class="page hidden">
+
+    <div class="page-title">Profile</div>
+
+    <div id="profileContent"></div>
+
+  </main>
+
+
+  <!-- EDIT PROFILE -->
+
+  <main id="editProfilePage" class="page hidden">
+
+    <div class="page-title">Edit Profile</div>
+
+    <div class="edit-card">
+
+      <div id="editPhoto" class="profile-photo-edit"></div>
+
+      <button class="secondary"
+              onclick="document.getElementById('profilePhotoInput').click()">
+        Change Profile Photo
+      </button>
+
+      <input id="profilePhotoInput"
+             class="hidden"
+             type="file"
+             accept="image/*"
+             onchange="changeProfilePhoto(event)">
+
+      <br><br>
+
+      <div class="form-group">
+        <label>Username</label>
+        <input id="editUsername">
+      </div>
+
+      <div class="form-group">
+        <label>Name</label>
+        <input id="editName">
+      </div>
+
+      <div class="form-group">
+        <label>Bio</label>
+        <textarea id="editBio"></textarea>
+      </div>
+
+      <button class="primary" onclick="saveProfile()">
+        Save Changes
+      </button>
+
+    </div>
+
+  </main>
+
+
+  <!-- NOTIFICATIONS -->
+
+  <main id="notificationsPage" class="page hidden">
+
+    <div class="page-title">Notifications</div>
+
+    <div class="create-card">
+      🔔 Your notifications will appear here.
+    </div>
+
+  </main>
+
+
+  <!-- ADMIN -->
+
+  <main id="adminPage" class="page hidden">
+
+    <div class="page-title">Admin Panel</div>
+
+    <div class="admin-card">
+
+      <div class="admin-title">⚠️ STREET ADMIN</div>
+
+      <p style="color:#aaa;font-size:13px;margin-bottom:15px">
+        This prototype admin panel only affects data saved in this browser.
+        A secure global admin system requires a backend.
+      </p>
+
+      <div id="adminUsers"></div>
+
+    </div>
+
+  </main>
+
+
+  <!-- NAVIGATION -->
+
+  <nav class="bottom-nav">
+
+    <button class="nav-btn active"
+            onclick="showPage('home')">
+      🏠
+      <small>Home</small>
+    </button>
+
+    <button class="nav-btn"
+            onclick="showPage('search')">
+      🔍
+      <small>Search</small>
+    </button>
+
+    <button class="nav-btn"
+            onclick="showPage('create')">
+      ➕
+      <small>Create</small>
+    </button>
+
+    <button class="nav-btn"
+            onclick="showPage('messages')">
+      💬
+      <small>Message</small>
+    </button>
+
+    <button class="nav-btn"
+            onclick="showPage('profile')">
+      👤
+      <small>Profile</small>
+    </button>
+
+  </nav>
+
+</section>
+
+
+<div id="toast" class="toast"></div>
+
+
+<script>
+
+/* =========================================================
+   STREET 0.3 DATABASE - LOCAL PROTOTYPE
+   ========================================================= */
+
+const USERS_KEY = "street03_users";
+const POSTS_KEY = "street03_posts";
+const CURRENT_KEY = "street03_current";
+const MESSAGES_KEY = "street03_messages";
+const BLOCKED_KEY = "street03_blocked";
+
+let users = JSON.parse(localStorage.getItem(USERS_KEY) || "[]");
+let posts = JSON.parse(localStorage.getItem(POSTS_KEY) || "[]");
+let messages = JSON.parse(localStorage.getItem(MESSAGES_KEY) || "[]");
+let blocked = JSON.parse(localStorage.getItem(BLOCKED_KEY) || "[]");
+
+let currentUser = null;
+
+let selectedMedia = null;
+
+
+/* =========================================================
+   STORAGE
+   ========================================================= */
+
+function saveAll(){
+
+  localStorage.setItem(USERS_KEY,JSON.stringify(users));
+  localStorage.setItem(POSTS_KEY,JSON.stringify(posts));
+  localStorage.setItem(MESSAGES_KEY,JSON.stringify(messages));
+  localStorage.setItem(BLOCKED_KEY,JSON.stringify(blocked));
+
+}
+
+
+/* =========================================================
+   HELPERS
+   ========================================================= */
+
+function id(){
+
+  return Date.now().toString(36) +
+         Math.random().toString(36).substring(2);
+
+}
+
+
+function toast(message){
+
+  const t=document.getElementById("toast");
+
+  t.textContent=message;
+  t.style.display="block";
+
+  setTimeout(()=>{
+    t.style.display="none";
+  },2200);
+
+}
+
+
+function getUser(username){
+
+  return users.find(
+    u=>u.username.toLowerCase()===username.toLowerCase()
+  );
+
+}
+
+
+function getInitial(user){
+
+  return (user.name || user.username || "?")
+    .charAt(0)
+    .toUpperCase();
+
+}
+
+
+function avatarHTML(user,className="avatar"){
+
+  if(user.photo){
+
+    return `
+      <div class="${className}">
+        <img src="${user.photo}">
+      </div>
+    `;
+
+  }
+
+  return `
+    <div class="${className}">
+      ${getInitial(user)}
+    </div>
+  `;
+
+}
+
+
+/* =========================================================
+   AUTH
+   ========================================================= */
+
+function showAuth(type){
+
+  const login=document.getElementById("loginForm");
+  const signup=document.getElementById("signupForm");
+
+  const lt=document.getElementById("loginTab");
+  const st=document.getElementById("signupTab");
+
+  if(type==="login"){
+
+    login.classList.remove("hidden");
+    signup.classList.add("hidden");
+
+    lt.classList.add("active");
+    st.classList.remove("active");
+
+  }else{
+
+    login.classList.add("hidden");
+    signup.classList.remove("hidden");
+
+    lt.classList.remove("active");
+    st.classList.add("active");
+
+  }
+
+}
+
+
+function signup(event){
+
+  event.preventDefault();
+
+  const username=
+    document.getElementById("signupUsername")
+    .value.trim()
+    .toLowerCase();
+
+  const name=
+    document.getElementById("signupName")
+    .value.trim();
+
+  const age=
+    Number(document.getElementById("signupAge").value);
+
+  const contact=
+    document.getElementById("signupContact")
+    .value.trim()
+    .toLowerCase();
+
+  const password=
+    document.getElementById("signupPassword").value;
+
+
+  if(!/^[a-z0-9_.]+$/.test(username)){
+
+    toast("Username can use letters, numbers, _ and .");
+
+    return;
+
+  }
+
+
+  if(users.some(u=>u.username===username)){
+
+    toast("Username already exists.");
+
+    return;
+
+  }
+
+
+  if(users.some(u=>u.contact===contact)){
+
+    toast("Email/phone is already registered.");
+
+    return;
+
+  }
+
+
+  if(age<13){
+
+    toast("Minimum age is 13.");
+
+    return;
+
+  }
+
+
