@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>STREET 0.2</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f5f5;
+      color: #111;
+      padding-bottom: 70px;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: white;
+      border-bottom: 1px solid #ddd;
+      padding: 15px 18px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 25px;
+      font-weight: 900;
+      letter-spacing: 2px;
+    }
+
+    .bell {
+      font-size: 22px;
+    }
+
+    .stories {
+      background: white;
+      padding: 15px 10px;
+      display: flex;
+      gap: 15px;
+      overflow-x: auto;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .story {
+      min-width: 65px;
+      text-align: center;
+      font-size: 12px;
+    }
+
+    .story-img {
+      width: 58px;
+      height: 58px;
+      border-radius: 50%;
+      border: 3px solid #168cff;
+      margin: auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #222;
+      color: white;
+      font-weight: bold;
+    }
+
+    .feed {
+      max-width: 600px;
+      margin: auto;
+    }
+
+    .post {
+      background: white;
+      margin: 12px 0;
+      border: 1px solid #ddd;
+    }
+
+    .user {
+      padding: 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: bold;
+    }
+
+    .avatar {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: #222;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .post-image {
+      height: 330px;
+      background: linear-gradient(135deg, #222, #555);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 30px;
+      font-weight: bold;
+    }
+
+    .actions {
+      padding: 12px;
+      display: flex;
+      gap: 18px;
+      font-size: 23px;
+    }
+
+    .caption {
+      padding: 0 12px 15px;
+    }
+
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 62px;
+      background: white;
+      border-top: 1px solid #ddd;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      z-index: 20;
+    }
+
+    .nav-item {
+      font-size: 22px;
+      text-align: center;
+      cursor: pointer;
+    }
+
+    .nav-item small {
+      display: block;
+      font-size: 10px;
+    }
+
+    button {
+      border: none;
+      background: none;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <div class="logo">STREET</div>
+    <button class="bell" onclick="showMessage()">🔔</button>
+  </header>
+
+  <section class="stories">
+    <div class="story">
+      <div class="story-img">YOU</div>
+      Your story
+    </div>
+
+    <div class="story">
+      <div class="story-img">A</div>
+      Aryan
+    </div>
+
+    <div class="story">
+      <div class="story-img">R</div>
+      Riya
+    </div>
+
+    <div class="story">
+      <div class="story-img">K</div>
+      Karan
+    </div>
+
+    <div class="story">
+      <div class="story-img">S</div>
+      Shiv
+    </div>
+  </section>
+
+  <main class="feed">
+
+    <article class="post">
+      <div class="user">
+        <div class="avatar">A</div>
+        <span>Aryan</span>
+      </div>
+
+      <div class="post-image">
+        STREET
+      </div>
+
+      <div class="actions">
+        <button onclick="likePost(this)">♡</button>
+        <button onclick="showMessage()">💬</button>
+        <button onclick="showMessage()">↗</button>
+      </div>
+
+      <div class="caption">
+        <b class="likes">0 likes</b>
+        <p><b>Aryan</b> Welcome to STREET 0.2 🚀</p>
+      </div>
+    </article>
+
+  </main>
+
+  <nav class="bottom-nav">
+    <div class="nav-item" onclick="showMessage()">🏠<small>Home</small></div>
+    <div class="nav-item" onclick="showMessage()">🔍<small>Search</small></div>
+    <div class="nav-item" onclick="showMessage()">➕<small>Create</small></div>
+    <div class="nav-item" onclick="showMessage()">💬<small>Message</small></div>
+    <div class="nav-item" onclick="showMessage()">👤<small>Profile</small></div>
+  </nav>
+
+  <script>
+    function likePost(button) {
+      const likes = button.closest(".post").querySelector(".likes");
+      let number = parseInt(likes.textContent) || 0;
+
+      if (button.textContent === "♡") {
+        number++;
+        button.textContent = "♥";
+      } else {
+        number--;
+        button.textContent = "♡";
+      }
+
+      likes.textContent = number + " likes";
+    }
+
+    function showMessage() {
+      alert("This feature will be added in the next version 🚀");
+    }
+  </script>
+
+</body>
+</html>
